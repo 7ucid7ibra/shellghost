@@ -84,7 +84,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command "iwr -useb https://raw.gi
 # Package managers (community maintained)
 # For macOS, we recommend Homebrew for the easiest installation:
 brew install ghost              # macOS and Linux
-npm i -g ghost-in-the-shell@latest        # or bun/pnpm/yarn
+npm i -g shellghost@latest        # or bun/pnpm/yarn
 scoop bucket add extras; scoop install extras/ghost  # Windows
 choco install ghost             # Windows
 paru -S ghost-bin               # Arch Linux

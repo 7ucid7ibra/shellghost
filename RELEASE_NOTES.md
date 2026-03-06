@@ -12,29 +12,29 @@
 
 ### Quick Install (macOS/Linux)
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Balanced-Libra/Shell-Ghost/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/Balanced-Libra/ShellGhost/main/install.sh | bash
 ```
 
 ### Quick Install (Windows PowerShell)
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -Command "iwr -useb https://raw.githubusercontent.com/Balanced-Libra/Shell-Ghost/main/install.ps1 | iex"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "iwr -useb https://raw.githubusercontent.com/Balanced-Libra/ShellGhost/main/install.ps1 | iex"
 ```
 
 ### Build from Source
 ```bash
-git clone https://github.com/Balanced-Libra/Shell-Ghost.git
-cd Shell-Ghost/packages/opencode
+git clone https://github.com/Balanced-Libra/ShellGhost.git
+cd ShellGhost/packages/opencode
 bun install
 bun run build
 ```
 
 ## Release Assets
 Choose the appropriate binary for your system:
-- `ghost-in-the-shell-darwin-arm64.tar.gz` - macOS Apple Silicon
-- `ghost-in-the-shell-darwin-x64.tar.gz` - macOS Intel
-- `ghost-in-the-shell-linux-x64.tar.gz` - Linux x64
-- `ghost-in-the-shell-linux-arm64.tar.gz` - Linux ARM64
-- `ghost-in-the-shell-windows-x64.tar.gz` - Windows x64
+- `shellghost-darwin-arm64.tar.gz` - macOS Apple Silicon
+- `shellghost-darwin-x64.tar.gz` - macOS Intel
+- `shellghost-linux-x64.tar.gz` - Linux x64
+- `shellghost-linux-arm64.tar.gz` - Linux ARM64
+- `shellghost-windows-x64.tar.gz` - Windows x64
 
 ## Escalation Policy
 This release includes the new friction minimization and escalation ladder policy - the AI will exhaust all autonomous options before asking for user intervention.

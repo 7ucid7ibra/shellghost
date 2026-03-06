@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "ghost-in-the-shell",
+  "name": "shellghost",
   "description": "AI-powered development tool - ShellGhost",
   "private": true,
   "type": "module",

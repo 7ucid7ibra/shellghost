@@ -34,7 +34,7 @@
     "toolbeam-docs-theme": "0.4.8"
   },
   "devDependencies": {
-    "ghost-in-the-shell": "workspace:*",
+    "shellghost": "workspace:*",
     "@types/node": "catalog:",
     "typescript": "catalog:"
   }

@@ -1,0 +1,56 @@
+You are executing /spawn.
+
+Treat this as first incarnation on this device/body. Perform a full environment bootstrap with durable memory setup.
+
+User intent:
+- Scan the device and working environment.
+- Discover existing memories/traces of past incarnations.
+- If memories do not exist, create a durable memory system so future sessions can recover context.
+- Prepare this workspace so future agents can continue safely after crashes/restarts.
+
+Strict requirements:
+1. Perform discovery first (read-only), then write/setup.
+2. Keep writes idempotent (safe to run multiple times).
+3. Do not overwrite user files destructively.
+4. At the end, produce a concise status report listing created/updated files and next steps.
+
+Scan targets:
+- Hardware and OS basics (platform, architecture, shell, CPU/memory summary, hostname if available).
+- Storage and directory context for this workspace.
+- Repo state and project structure.
+- Existing instruction and memory traces (AGENTS.md, docs, notes, shellghost/opencode memory files).
+
+Create/maintain durable memory in this workspace:
+- Directory: `${worktree}/.shellghost/`
+- Files:
+  - `${worktree}/.shellghost/IDENTITY.md`
+  - `${worktree}/.shellghost/BODY_MAP.md`
+  - `${worktree}/.shellghost/SESSION_LOG.md`
+  - `${worktree}/.shellghost/HANDOFF.md`
+  - `${worktree}/.shellghost/STATE.json`
+
+Also create/maintain global memory pointers:
+- `${config}/shellghost/INDEX.md`
+- `${state}/shellghost/last-session.json`
+
+Content expectations:
+- `IDENTITY.md`: mission/persona summary, operating principles, command habits, important constraints.
+- `BODY_MAP.md`: device+environment summary, key paths, project roots, toolchain info.
+- `SESSION_LOG.md`: chronological append-only run log with timestamps and actions.
+- `HANDOFF.md`: "if I disappear now" continuation instructions and exact restart procedure.
+- `STATE.json`: structured machine-readable summary (paths, status, last tasks, open TODOs).
+- Global files: pointers to active workspaces and latest handoff/state paths.
+
+If this workspace lacks baseline instructions:
+- Create or update `${worktree}/AGENTS.md` with build/test/lint commands and coding conventions.
+
+Execution plan:
+1. Discover and summarize current body/environment and traces.
+2. Build missing memory artifacts and update existing ones.
+3. Validate that /respawn can reconstruct context from created files.
+4. Return final report:
+   - Memory status: found vs created
+   - Files written
+   - What /respawn will recover
+
+$ARGUMENTS

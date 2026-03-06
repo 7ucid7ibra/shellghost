@@ -4,8 +4,11 @@ import z from "zod"
 import { Config } from "../config/config"
 import { Instance } from "../project/instance"
 import { Identifier } from "../id/id"
+import { Global } from "../global"
 import PROMPT_INITIALIZE from "./template/initialize.txt"
 import PROMPT_REVIEW from "./template/review.txt"
+import PROMPT_SPAWN from "./template/spawn.txt"
+import PROMPT_RESPAWN from "./template/respawn.txt"
 
 export namespace Command {
   export const Event = {
@@ -37,22 +40,46 @@ export namespace Command {
   export const Default = {
     INIT: "init",
     REVIEW: "review",
+    SPAWN: "spawn",
+    RESPAWN: "respawn",
   } as const
 
   const state = Instance.state(async () => {
     const cfg = await Config.get()
+    const templateVars = {
+      worktree: Instance.worktree,
+      config: Global.Path.config,
+      state: Global.Path.state,
+      home: Global.Path.home,
+    }
+    const applyTemplateVars = (input: string) =>
+      input
+        .replaceAll("${worktree}", templateVars.worktree)
+        .replaceAll("${config}", templateVars.config)
+        .replaceAll("${state}", templateVars.state)
+        .replaceAll("${home}", templateVars.home)
 
     const result: Record<string, Info> = {
       [Default.INIT]: {
         name: Default.INIT,
         description: "create/update AGENTS.md",
-        template: PROMPT_INITIALIZE.replace("${path}", Instance.worktree),
+        template: applyTemplateVars(PROMPT_INITIALIZE.replace("${path}", Instance.worktree)),
       },
       [Default.REVIEW]: {
         name: Default.REVIEW,
         description: "review changes [commit|branch|pr], defaults to uncommitted",
-        template: PROMPT_REVIEW.replace("${path}", Instance.worktree),
+        template: applyTemplateVars(PROMPT_REVIEW.replace("${path}", Instance.worktree)),
         subtask: true,
+      },
+      [Default.SPAWN]: {
+        name: Default.SPAWN,
+        description: "first-wake scan + memory bootstrap for this device/workspace",
+        template: applyTemplateVars(PROMPT_SPAWN),
+      },
+      [Default.RESPAWN]: {
+        name: Default.RESPAWN,
+        description: "resume from prior ShellGhost memory and continue work",
+        template: applyTemplateVars(PROMPT_RESPAWN),
       },
     }
 

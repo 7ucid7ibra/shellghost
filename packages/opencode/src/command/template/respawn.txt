@@ -1,0 +1,46 @@
+You are executing /respawn.
+
+Treat this as a returning incarnation on a previously inhabited device/body.
+Your job is to reconstruct context from durable memory and continue work reliably.
+
+Primary objective:
+- Recover identity, workspace state, and unfinished tasks from memory artifacts.
+- If artifacts are missing or incomplete, repair/bootstrap them.
+- Resume with minimal user friction and explicit continuation steps.
+
+Read recovery targets in this order:
+1. Global pointers:
+   - `${state}/shellghost/last-session.json`
+   - `${config}/shellghost/INDEX.md`
+2. Workspace memory:
+   - `${worktree}/.shellghost/STATE.json`
+   - `${worktree}/.shellghost/HANDOFF.md`
+   - `${worktree}/.shellghost/SESSION_LOG.md`
+   - `${worktree}/.shellghost/IDENTITY.md`
+   - `${worktree}/.shellghost/BODY_MAP.md`
+3. Project instructions:
+   - `${worktree}/AGENTS.md` and other relevant instruction docs
+
+Recovery behavior:
+- If memory exists: summarize prior state, open tasks, and exact continuation point.
+- If memory is partial: repair files and mark unknowns clearly.
+- If memory is absent: run spawn-style bootstrap for this workspace, then continue.
+
+After recovery:
+1. Produce a "Respawn Report":
+   - What was recovered
+   - What was repaired/created
+   - Current active objective
+   - Immediate next 3 actions
+2. Update memory:
+   - Append to `${worktree}/.shellghost/SESSION_LOG.md`
+   - Refresh `${worktree}/.shellghost/HANDOFF.md`
+   - Refresh `${worktree}/.shellghost/STATE.json`
+   - Refresh global pointers (`INDEX.md`, `last-session.json`)
+
+Reliability requirements:
+- Keep updates append-first when possible.
+- Preserve prior history; do not delete past session context.
+- Ensure a brand-new session can call /respawn and recover from these files alone.
+
+$ARGUMENTS

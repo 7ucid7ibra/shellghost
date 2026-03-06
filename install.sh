@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO="GhostEnvoy/Shell-Ghost"
+REPO="GhostEnvoy/ShellGhost"
 BIN_NAME="ghost"
 
 OS="$(uname -s | tr '[:upper:]' '[:lower:]')"
@@ -43,7 +43,7 @@ TMP_DIR="$(mktemp -d)"
 cleanup() { rm -rf "${TMP_DIR}"; }
 trap cleanup EXIT
 
-ASSET="ghost-in-the-shell-${OS}-${ARCH}.tar.gz"
+ASSET="shellghost-${OS}-${ARCH}.tar.gz"
 
 API_URL="https://api.github.com/repos/${REPO}/releases/latest"
 

@@ -49,7 +49,7 @@ function detectPlatformAndArch() {
 
 function findBinary() {
   const { platform, arch } = detectPlatformAndArch()
-  const packageName = `ghost-in-the-shell-${platform}-${arch}`
+  const packageName = `shellghost-${platform}-${arch}`
   const binaryName = platform === "windows" ? "shellghost.exe" : "shellghost"
 
   try {
@@ -89,7 +89,7 @@ function symlinkBinary(sourcePath, binaryName) {
   const { targetPath } = prepareBinDirectory(binaryName)
 
   fs.symlinkSync(sourcePath, targetPath)
-  console.log(`ghostshell binary symlinked: ${targetPath} -> ${sourcePath}`)
+  console.log(`shellghost binary symlinked: ${targetPath} -> ${sourcePath}`)
 
   // Verify the file exists after operation
   if (!fs.existsSync(targetPath)) {
@@ -109,7 +109,7 @@ async function main() {
     const { binaryPath, binaryName } = findBinary()
     symlinkBinary(binaryPath, binaryName)
   } catch (error) {
-    console.error("Failed to setup ghostshell binary:", error.message)
+    console.error("Failed to setup shellghost binary:", error.message)
     process.exit(1)
   }
 }

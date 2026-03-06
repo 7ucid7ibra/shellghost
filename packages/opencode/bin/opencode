@@ -49,7 +49,7 @@ let arch = archMap[os.arch()]
 if (!arch) {
   arch = os.arch()
 }
-const base = "ghost-in-the-shell-" + platform + "-" + arch
+const base = "shellghost-" + platform + "-" + arch
 const binary = platform === "windows" ? "shellghost.exe" : "shellghost"
 
 function findBinaryInDist(startDir) {

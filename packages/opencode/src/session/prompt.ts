@@ -18,6 +18,7 @@ import { SystemPrompt } from "./system"
 import { Plugin } from "../plugin"
 import PROMPT_PLAN from "../session/prompt/plan.txt"
 import BUILD_SWITCH from "../session/prompt/build-switch.txt"
+import GOD_SWITCH from "../session/prompt/god-switch.txt"
 import MAX_STEPS from "../session/prompt/max-steps.txt"
 import { defer } from "../util/defer"
 import { clone, mergeDeep, pipe } from "remeda"
@@ -960,7 +961,12 @@ export namespace SessionPrompt {
   function insertReminders(input: { messages: MessageV2.WithParts[]; agent: Agent.Info }) {
     const userMessage = input.messages.findLast((msg) => msg.info.role === "user")
     if (!userMessage) return input.messages
-    if (input.agent.name === "ask") {
+
+    const hasReminder = (text: string) =>
+      userMessage.parts.some((part) => part.type === "text" && part.synthetic === true && part.text === text)
+
+    // Keep ask mode constrained on every ask turn, but avoid duplicate inserts per message.
+    if (input.agent.name === "ask" && !hasReminder(PROMPT_PLAN)) {
       userMessage.parts.push({
         id: Identifier.ascending("part"),
         messageID: userMessage.info.id,
@@ -971,14 +977,35 @@ export namespace SessionPrompt {
         synthetic: true,
       })
     }
-    const wasAsk = input.messages.some((msg) => msg.info.role === "assistant" && msg.info.agent === "ask")
-    if (wasAsk && input.agent.name === "build") {
+
+    const userIndex = input.messages.findIndex((msg) => msg.info.id === userMessage.info.id)
+    let previousAssistantAgent: string | undefined
+    for (let i = userIndex - 1; i >= 0; i--) {
+      const msg = input.messages[i]
+      if (msg.info.role === "assistant") {
+        previousAssistantAgent = msg.info.agent
+        break
+      }
+    }
+
+    const switched = previousAssistantAgent && previousAssistantAgent !== input.agent.name
+    if (switched && input.agent.name === "build" && !hasReminder(BUILD_SWITCH)) {
       userMessage.parts.push({
         id: Identifier.ascending("part"),
         messageID: userMessage.info.id,
         sessionID: userMessage.info.sessionID,
         type: "text",
         text: BUILD_SWITCH,
+        synthetic: true,
+      })
+    }
+    if (switched && input.agent.name === "god" && !hasReminder(GOD_SWITCH)) {
+      userMessage.parts.push({
+        id: Identifier.ascending("part"),
+        messageID: userMessage.info.id,
+        sessionID: userMessage.info.sessionID,
+        type: "text",
+        text: GOD_SWITCH,
         synthetic: true,
       })
     }

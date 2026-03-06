@@ -399,7 +399,7 @@ function App() {
       title: "Open docs",
       value: "docs.open",
       onSelect: () => {
-        open("https://github.com/Balanced-Libra/Shell-Ghost/tree/main/docs").catch(() => {})
+        open("https://github.com/Balanced-Libra/ShellGhost/tree/main/docs").catch(() => {})
         dialog.clear()
       },
       category: "System",
@@ -572,7 +572,7 @@ function ErrorComponent(props: {
   })
   const [copied, setCopied] = createSignal(false)
 
-  const issueURL = new URL("https://github.com/Balanced-Libra/GhostShell/issues/new")
+  const issueURL = new URL("https://github.com/Balanced-Libra/ShellGhost/issues/new")
 
   // Choose safe fallback colors per mode since theme context may not be available
   const isLight = props.mode === "light"
@@ -594,7 +594,7 @@ function ErrorComponent(props: {
     )
   }
 
-  issueURL.searchParams.set("ghostshell-version", Installation.VERSION)
+  issueURL.searchParams.set("shellghost-version", Installation.VERSION)
 
   const copyIssueURL = () => {
     Clipboard.copy(issueURL.toString()).then(() => {

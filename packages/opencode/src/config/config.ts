@@ -622,7 +622,7 @@ export namespace Config {
       command: z
         .record(z.string(), Command)
         .optional()
-        .describe("Command configuration, see https://github.com/Balanced-Libra/Shell-Ghost/tree/main/docs/commands"),
+        .describe("Command configuration, see https://github.com/Balanced-Libra/ShellGhost/tree/main/docs/commands"),
       watcher: z
         .object({
           ignore: z.array(z.string()).optional(),
@@ -683,7 +683,7 @@ export namespace Config {
         })
         .catchall(Agent)
         .optional()
-        .describe("Agent configuration, see https://github.com/Balanced-Libra/Shell-Ghost/tree/main/docs/agent"),
+        .describe("Agent configuration, see https://github.com/Balanced-Libra/ShellGhost/tree/main/docs/agent"),
       provider: z
         .record(z.string(), Provider)
         .optional()
