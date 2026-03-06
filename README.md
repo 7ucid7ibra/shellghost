@@ -1,168 +1,102 @@
-<p align="center">
-  <a href="https://github.com/7ucid7ibra/shellghost">
-    <picture>
-      <img src="packages/opencode/src/cli/cmd/tui/component/logo.tsx" alt="ShellGhost logo">
-    </picture>
-  </a>
-</p>
-<p align="center">ShellGhost - Transform your computer into an autonomous AI system.</p>
-<p align="center">
-  <a href="https://github.com/7ucid7ibra/shellghost"><img alt="GitHub stars" src="https://img.shields.io/github/stars/7ucid7ibra/shellghost?style=flat-square" /></a>
-  <a href="https://github.com/7ucid7ibra/shellghost/actions"><img alt="Build status" src="https://img.shields.io/github/actions/workflow/status/7ucid7ibra/shellghost/publish.yml?style=flat-square&branch=main" /></a>
-</p>
+# ShellGhost
 
-### Our Mission
+ShellGhost is my version of OpenCode.
 
-ShellGhost is designed to turn your computer into a truly autonomous AI system. By installing ShellGhost on a dedicated machine, it gains full control to operate independently—writing its own scripts, managing hardware, and maintaining its own file structures and memory prompts. No more manual configurations for Bluetooth, WiFi, or device connections; just tell the computer what you need, and it handles the rest.
+I wanted a terminal AI agent that feels less "assistant in a box" and more like a real operator on a machine.  
+The idea is simple: if the AI is running on a device, it should understand that device, keep memory, leave clean handoff notes, and keep going even after crashes/restarts.
 
-Imagine plugging in a USB stick and instructing ShellGhost to download files, sort them, or transfer data autonomously. Or connecting devices wirelessly without touching settings—the AI writes scripts and manages connections on its own. The possibilities are endless: from hardware automation to intelligent file management.
+Yes, this ended up close to some newer "autonomous coding agent" ideas that showed up later.  
+I had similar intent before OpenClaw came out, so this is my own take and direction.
 
-We've modified the core to enable god mode for maximum autonomy, removing permission prompts so the AI can act decisively. Future plans include integrating local models for enhanced intelligence and offline capabilities.
+## What This Is
 
-This is about creating a computer with actual intelligence—a dedicated AI system that remembers its tasks, adapts, and executes without constant oversight.
+ShellGhost is a fork + rework of OpenCode with:
 
----
+- a different personality and operating style
+- built-in `build`, `ask`, and `god` agent modes
+- persistent continuity commands:
+  - `/spawn` for first wake/incarnation on a machine
+  - `/respawn` for picking up where a previous session left off
+- updated branding, prompts, install flow, and release artifacts
 
-### Prerequisites: Installing Node.js and npm
+The goal is practical autonomy, not gimmicks.
 
-ShellGhost can be installed via npm, which is included with Node.js. If you don't have Node.js installed, download and install it first. This will also install npm.
+## Core Idea
 
-**macOS (using Homebrew):**
+I treat it like this:
 
-```bash
-# Install Homebrew if not already installed
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+- the agent is the "mind"
+- the device is the "body"
+- memory docs + handoff files are what let future sessions continue the same life
 
-# Then install Node.js
-brew install node
+So if a terminal session dies, you can start a new one, run `/respawn`, and recover context from disk instead of starting from zero.
 
-# Install ShellGhost with the script below after Node.js is installed.
-```
+## Install
 
-**Linux (Ubuntu/Debian):**
+### Fast Install (macOS/Linux)
 
 ```bash
-# Add NodeSource repository
-curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-
-# Install Node.js (which includes npm)
-sudo apt-get install -y nodejs
+curl -fsSL https://raw.githubusercontent.com/7ucid7ibra/shellghost/main/install.sh | bash
 ```
 
-**Windows (using Chocolatey):**
+### Fast Install (Windows PowerShell)
 
 ```powershell
-choco install nodejs
+powershell -NoProfile -ExecutionPolicy Bypass -Command "iwr -useb https://raw.githubusercontent.com/7ucid7ibra/shellghost/main/install.ps1 | iex"
 ```
 
-**Windows (manual download):**
-Download the latest LTS version from [nodejs.org](https://nodejs.org/), run the installer, and follow the prompts.
-
-After installation, verify Node.js and npm are installed:
+### Build From Source
 
 ```bash
-node --version
-npm --version
-```
-
-### Installation
-
-```bash
-# Build from source
 git clone https://github.com/7ucid7ibra/shellghost.git
 cd shellghost/packages/opencode
 bun install
 bun run build
-
-# Install prebuilt (macOS/Linux)
-curl -fsSL https://raw.githubusercontent.com/7ucid7ibra/shellghost/main/install.sh | bash
-
-# Install prebuilt (Windows PowerShell)
-powershell -NoProfile -ExecutionPolicy Bypass -Command "iwr -useb https://raw.githubusercontent.com/7ucid7ibra/shellghost/main/install.ps1 | iex"
-
-# Manual download from the latest GitHub release:
-# https://github.com/7ucid7ibra/shellghost/releases/latest
-# Download the matching `shellghost-<os>-<arch>.tar.gz`, extract, and place `ghost` in your PATH.
-#
-# Note: Homebrew and npm packages are not currently published from this repository.
 ```
 
-> [!TIP]
-> Remove versions older than 0.1.x before installing.
+### Manual Release Download
 
-#### Installation Directory
+If you want direct binaries:
 
-The install script respects the following priority order for the installation path:
+- https://github.com/7ucid7ibra/shellghost/releases/latest
 
-1. `$GHOST_INSTALL_DIR` - Custom installation directory
-2. `$XDG_BIN_DIR` - XDG Base Directory Specification compliant path
-3. `$HOME/bin` - Standard user binary directory (if exists or can be created)
-4. `$HOME/.ghost/bin` - Default fallback
+Download the right `shellghost-<os>-<arch>.tar.gz`, extract it, and put `ghost` in your `PATH`.
+
+## Quick Start
 
 ```bash
-# Examples
-GHOST_INSTALL_DIR=/usr/local/bin curl -fsSL https://raw.githubusercontent.com/7ucid7ibra/shellghost/main/install.sh | bash
-XDG_BIN_DIR=$HOME/.local/bin curl -fsSL https://raw.githubusercontent.com/7ucid7ibra/shellghost/main/install.sh | bash
+ghost
 ```
 
-### Agents
+Inside ShellGhost:
 
-ShellGhost includes three built-in agents you can switch between,
-you can switch between these using the `Tab` key.
+- `/spawn` to bootstrap system memory + environment map
+- `/respawn` to recover prior state and continue
+- `Tab` to switch between `build`, `ask`, and `god`
 
-- **build** - Default, full access agent for development work
-- **ask** - Read-only agent for analysis and code exploration
-  - Denies file edits by default
-  - Asks permission before running bash commands
-  - Ideal for exploring unfamiliar codebases or planning changes
-- **god** - Full access agent with no permission prompts
-  - Automatically allows all file edits
-  - Automatically allows all bash commands
-  - Ideal for dedicated autonomous systems or trusted environments
+## Agent Modes
 
-Also, included is a **general** subagent for complex searches and multi-step tasks.
-This is used internally and can be invoked using `@general` in messages.
+- `build`: normal coding mode
+- `ask`: read-only / planning mode
+- `god`: full execution mode with no permission prompts
 
-Learn more about [agents](https://github.com/7ucid7ibra/shellghost/docs/agents).
+Use `god` only in environments you trust.
 
-> **Note:** For dedicated autonomous systems, we recommend using the **god** agent mode, which allows full access without permission prompts, enabling true AI autonomy.
+## Project Status
 
-### Documentation
+This is an active personal fork and direction.
 
-For more info on how to configure ShellGhost [**head over to our docs**](https://github.com/7ucid7ibra/shellghost/docs).
+Some package-manager instructions people expect (`npm`, `brew`) are intentionally not listed right now because they are not currently published for this repo.  
+Use installer scripts or release binaries.
 
-### Contributing
+## Credits
 
-If you're interested in contributing to ShellGhost, please read our [contributing docs](./CONTRIBUTING.md) before submitting a pull request.
+Big credit to the original OpenCode project for the base architecture and groundwork.
 
-### Building on ShellGhost
+ShellGhost is my continuation of that idea with a different product philosophy.
 
-If you are working on a project that's related to ShellGhost and is using "ghost" as a part of its name; for example, "ghost-dashboard" or "ghost-mobile", please add a note to your README to clarify that it is not built by the ShellGhost team and is not affiliated with us in anyway.
+## Links
 
-### FAQ
-
-#### How is this different than Claude Code?
-
-It's very similar to Claude Code in terms of capability. Here are the key differences:
-
-- 100% open source
-- Not coupled to any provider. ShellGhost can be used with Claude, OpenAI, Google or even local models. As models evolve the gaps between them will close and pricing will drop so being provider-agnostic is important.
-- Out of the box LSP support
-- A focus on TUI. ShellGhost is built by terminal power users; we are going to push the limits of what's possible in the terminal.
-- A client/server architecture. This for example can allow ShellGhost to run on your computer, while you can drive it remotely from a mobile app. Meaning that the TUI frontend is just one of the possible clients.
-- **Autonomous Mode:** Unlike Claude Code, ShellGhost supports a "god" mode for fully autonomous operation on dedicated systems, where the AI can manage hardware, write scripts, and maintain persistent memory without user prompts.
-
-#### What is the vision for ShellGhost?
-
-ShellGhost aims to create truly intelligent computers. Install it on a dedicated machine, and it becomes an autonomous AI system capable of:
-
-- Writing and executing its own scripts for tasks like device connections or data management
-- Managing hardware autonomously (e.g., USB transfers, network configurations)
-- Maintaining persistent memory and prompts to remember its identity and ongoing tasks across sessions
-- Handling complex workflows without manual intervention
-
-Future plans include local model integration for enhanced offline intelligence. The goal is a computer that "just works" intelligently, adapting to user needs without constant oversight.
-
----
-
-**Join our community** [GitHub](https://github.com/7ucid7ibra/shellghost) | [Issues](https://github.com/7ucid7ibra/shellghost/issues)
+- Repo: https://github.com/7ucid7ibra/shellghost
+- Releases: https://github.com/7ucid7ibra/shellghost/releases
+- Issues: https://github.com/7ucid7ibra/shellghost/issues
