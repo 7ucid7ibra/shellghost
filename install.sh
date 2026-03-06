@@ -72,8 +72,13 @@ else
   wget -qO "${ARCHIVE_PATH}" "${DOWNLOAD_URL}"
 fi
 
-BIN_PATH="${TMP_DIR}/bin/shellghost"
 tar -xzf "${ARCHIVE_PATH}" -C "${TMP_DIR}"
+
+BIN_PATH="${TMP_DIR}/shellghost"
+if [ ! -f "${BIN_PATH}" ]; then
+  # Backward-compatible fallback if archive has bin/ directory layout
+  BIN_PATH="${TMP_DIR}/bin/shellghost"
+fi
 
 if [ ! -f "${BIN_PATH}" ]; then
   echo "Downloaded archive did not contain expected binary 'shellghost'" >&2
