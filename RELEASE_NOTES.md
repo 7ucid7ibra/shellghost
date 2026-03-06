@@ -12,18 +12,18 @@
 
 ### Quick Install (macOS/Linux)
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Balanced-Libra/ShellGhost/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/7ucid7ibra/shellghost/main/install.sh | bash
 ```
 
 ### Quick Install (Windows PowerShell)
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -Command "iwr -useb https://raw.githubusercontent.com/Balanced-Libra/ShellGhost/main/install.ps1 | iex"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "iwr -useb https://raw.githubusercontent.com/7ucid7ibra/shellghost/main/install.ps1 | iex"
 ```
 
 ### Build from Source
 ```bash
-git clone https://github.com/Balanced-Libra/ShellGhost.git
-cd ShellGhost/packages/opencode
+git clone https://github.com/7ucid7ibra/shellghost.git
+cd shellghost/packages/opencode
 bun install
 bun run build
 ```

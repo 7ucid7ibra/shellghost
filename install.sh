@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO="GhostEnvoy/ShellGhost"
+REPO="7ucid7ibra/shellghost"
 BIN_NAME="ghost"
 
 OS="$(uname -s | tr '[:upper:]' '[:lower:]')"

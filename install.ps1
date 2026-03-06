@@ -1,6 +1,6 @@
 $ErrorActionPreference = 'Stop'
 
-$Repo = 'GhostEnvoy/ShellGhost'
+$Repo = '7ucid7ibra/shellghost'
 $BinName = 'ghost.exe'
 
 $Arch = $env:PROCESSOR_ARCHITECTURE

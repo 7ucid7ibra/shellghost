@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://github.com/Balanced-Libra/shellghost">
+  <a href="https://github.com/7ucid7ibra/shellghost">
     <picture>
       <img src="packages/opencode/src/cli/cmd/tui/component/logo.tsx" alt="ShellGhost logo">
     </picture>
@@ -7,8 +7,8 @@
 </p>
 <p align="center">ShellGhost - Transform your computer into an autonomous AI system.</p>
 <p align="center">
-  <a href="https://github.com/Balanced-Libra/shellghost"><img alt="GitHub stars" src="https://img.shields.io/github/stars/Balanced-Libra/shellghost?style=flat-square" /></a>
-  <a href="https://github.com/Balanced-Libra/shellghost/actions"><img alt="Build status" src="https://img.shields.io/github/actions/workflow/status/Balanced-Libra/shellghost/publish.yml?style=flat-square&branch=main" /></a>
+  <a href="https://github.com/7ucid7ibra/shellghost"><img alt="GitHub stars" src="https://img.shields.io/github/stars/7ucid7ibra/shellghost?style=flat-square" /></a>
+  <a href="https://github.com/7ucid7ibra/shellghost/actions"><img alt="Build status" src="https://img.shields.io/github/actions/workflow/status/7ucid7ibra/shellghost/publish.yml?style=flat-square&branch=main" /></a>
 </p>
 
 ### Our Mission
@@ -36,8 +36,7 @@ ShellGhost can be installed via npm, which is included with Node.js. If you don'
 # Then install Node.js
 brew install node
 
-# For ShellGhost installation, we recommend using Homebrew:
-brew install ghost
+# Install ShellGhost with the script below after Node.js is installed.
 ```
 
 **Linux (Ubuntu/Debian):**
@@ -70,26 +69,22 @@ npm --version
 
 ```bash
 # Build from source
-git clone https://github.com/Balanced-Libra/shellghost.git
+git clone https://github.com/7ucid7ibra/shellghost.git
 cd shellghost/packages/opencode
 bun install
 bun run build
 
 # Install prebuilt (macOS/Linux)
-curl -fsSL https://raw.githubusercontent.com/Balanced-Libra/shellghost/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/7ucid7ibra/shellghost/main/install.sh | bash
 
 # Install prebuilt (Windows PowerShell)
-powershell -NoProfile -ExecutionPolicy Bypass -Command "iwr -useb https://raw.githubusercontent.com/Balanced-Libra/shellghost/main/install.ps1 | iex"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "iwr -useb https://raw.githubusercontent.com/7ucid7ibra/shellghost/main/install.ps1 | iex"
 
-# Package managers (community maintained)
-# For macOS, we recommend Homebrew for the easiest installation:
-brew install ghost              # macOS and Linux
-npm i -g shellghost@latest        # or bun/pnpm/yarn
-scoop bucket add extras; scoop install extras/ghost  # Windows
-choco install ghost             # Windows
-paru -S ghost-bin               # Arch Linux
-mise use -g ubi:Balanced-Libra/shellghost # Any OS
-nix run nixpkgs#ghost           # or github:Balanced-Libra/shellghost for latest dev branch
+# Manual download from the latest GitHub release:
+# https://github.com/7ucid7ibra/shellghost/releases/latest
+# Download the matching `shellghost-<os>-<arch>.tar.gz`, extract, and place `ghost` in your PATH.
+#
+# Note: Homebrew and npm packages are not currently published from this repository.
 ```
 
 > [!TIP]
@@ -106,8 +101,8 @@ The install script respects the following priority order for the installation pa
 
 ```bash
 # Examples
-GHOST_INSTALL_DIR=/usr/local/bin curl -fsSL https://raw.githubusercontent.com/Balanced-Libra/shellghost/main/install.sh | bash
-XDG_BIN_DIR=$HOME/.local/bin curl -fsSL https://raw.githubusercontent.com/Balanced-Libra/shellghost/main/install.sh | bash
+GHOST_INSTALL_DIR=/usr/local/bin curl -fsSL https://raw.githubusercontent.com/7ucid7ibra/shellghost/main/install.sh | bash
+XDG_BIN_DIR=$HOME/.local/bin curl -fsSL https://raw.githubusercontent.com/7ucid7ibra/shellghost/main/install.sh | bash
 ```
 
 ### Agents
@@ -128,13 +123,13 @@ you can switch between these using the `Tab` key.
 Also, included is a **general** subagent for complex searches and multi-step tasks.
 This is used internally and can be invoked using `@general` in messages.
 
-Learn more about [agents](https://github.com/Balanced-Libra/shellghost/docs/agents).
+Learn more about [agents](https://github.com/7ucid7ibra/shellghost/docs/agents).
 
 > **Note:** For dedicated autonomous systems, we recommend using the **god** agent mode, which allows full access without permission prompts, enabling true AI autonomy.
 
 ### Documentation
 
-For more info on how to configure ShellGhost [**head over to our docs**](https://github.com/Balanced-Libra/shellghost/docs).
+For more info on how to configure ShellGhost [**head over to our docs**](https://github.com/7ucid7ibra/shellghost/docs).
 
 ### Contributing
 
@@ -170,4 +165,4 @@ Future plans include local model integration for enhanced offline intelligence. 
 
 ---
 
-**Join our community** [GitHub](https://github.com/Balanced-Libra/shellghost) | [Issues](https://github.com/Balanced-Libra/shellghost/issues)
+**Join our community** [GitHub](https://github.com/7ucid7ibra/shellghost) | [Issues](https://github.com/7ucid7ibra/shellghost/issues)
